@@ -17,10 +17,10 @@
 
 
         <!-- ActiveAndroid DB name -->
-        <meta-data android:name="AA_DB_NAME" android:value="TestDB" />
+        <meta-data android:name="AA_DB_NAME" android:value="ActiveAndroid" />
         <!-- ActiveAndroid DB version -->
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
-        <!-- Active Android Entity path. NOT REQUIRED. FOR THE OPTIMZING.  -->
+        <!-- Active Android Entity path. NOT REQUIRED. FOR THE OPTIMIZING.  -->
         <meta-data
             android:name="AA_MODELS"
             android:value="com.asenturk.baseproject.Entities.Item, com.asenturk.baseproject.Entities.Category" />

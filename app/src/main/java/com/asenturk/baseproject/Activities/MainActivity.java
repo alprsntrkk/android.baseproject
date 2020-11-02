@@ -12,8 +12,10 @@ import com.activeandroid.query.Select;
 import com.asenturk.baseproject.API.APIClient;
 import com.asenturk.baseproject.API.Services.TodoService;
 import com.asenturk.baseproject.Entities.Category;
+import com.asenturk.baseproject.Entities.Item;
 import com.asenturk.baseproject.R;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        File temp =getDatabasePath("TempDB");
+
 
         //SQLITE-ORM TOOL REGISTER
         ActiveAndroid.initialize(this);
@@ -84,8 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 //select all categories with ActiveAndroid
                 List<Category> result = new Select().from(Category.class).execute();
 
+                Item item = new Item();
+                item.category=result.get(0);
+                item.name="deneme2";
+                item.save();
                 //delete operation with ActiveAndroid
-                Category.delete(Category.class,category.getId());
+                //Category.delete(Category.class,category.getId());
             }
         });
     }

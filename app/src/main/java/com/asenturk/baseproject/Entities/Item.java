@@ -9,7 +9,7 @@ public class Item extends Model {
     @Column(name = "Name",index = true)
     public String name;
 
-    @Column(name = "Category",index = true)
+    @Column(name = "CategoryId",index = true)
     public Category category;
 
     public Item() {
