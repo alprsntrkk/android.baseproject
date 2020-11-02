@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asenturk.baseproject">
 
+    <!-- internet permission -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -12,6 +13,27 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <!-- useCleartxtTraffic=true added for retrofit -->
+
+
+        <!-- ActiveAndroid DB name -->
+        <meta-data android:name="AA_DB_NAME" android:value="TestDB" />
+        <!-- ActiveAndroid DB version -->
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <!-- Active Android Entity path. NOT REQUIRED. FOR THE OPTIMZING.  -->
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.asenturk.baseproject.Entities.Item, com.asenturk.baseproject.Entities.Category" />
+
+        <!-- SECURITY SETTINGS FOR ACTIVEANDROID -->
+        <!-- authorities property must be project's package name -->
+        <provider
+            android:name="com.activeandroid.content.ContentProvider"
+            android:authorities="com.asenturk.baseproject"
+            android:enabled="true"
+            android:exported="false"/>
+
+
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,5 +42,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

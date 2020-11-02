@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
 
 android {
     compileSdkVersion 30
@@ -41,5 +45,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     //Retrofit library
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    //SQLITE-ORM tool
+    implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 
 }

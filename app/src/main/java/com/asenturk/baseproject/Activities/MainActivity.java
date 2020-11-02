@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
 import com.asenturk.baseproject.API.APIClient;
 import com.asenturk.baseproject.API.Services.TodoService;
+import com.asenturk.baseproject.Entities.Category;
 import com.asenturk.baseproject.R;
+
+import java.util.Calendar;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -19,6 +25,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnTestRetrofit;
+    private Button btnActiveAndroid;
 
     //To Do Service
     private TodoService todoService;
@@ -28,12 +35,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //SQLITE-ORM TOOL REGISTER
+        ActiveAndroid.initialize(this);
+
         Init();
         RegisterHandlers();
     }
 
     private void Init(){
         btnTestRetrofit=findViewById(R.id.btnTestRetrofit);
+        btnActiveAndroid=findViewById(R.id.btnActiveAndroid);
 
         todoService = APIClient.getClient().create(TodoService.class);
     }
@@ -58,6 +69,23 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "ERROR: "+t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+
+        btnActiveAndroid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //insert operation with ActiveAndroid
+                Category category = new Category();
+                category.name="Kategori_"+ Calendar.getInstance().getTime().toString();
+                category.save();
+
+                //select all categories with ActiveAndroid
+                List<Category> result = new Select().from(Category.class).execute();
+
+                //delete operation with ActiveAndroid
+                Category.delete(Category.class,category.getId());
             }
         });
     }
