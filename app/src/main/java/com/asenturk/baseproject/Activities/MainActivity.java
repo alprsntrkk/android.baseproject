@@ -1,11 +1,14 @@
 package com.asenturk.baseproject.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
@@ -23,11 +26,11 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button btnTestRetrofit;
     private Button btnActiveAndroid;
+    private Button btnTestWebView;
 
     //To Do Service
     private TodoService todoService;
@@ -35,8 +38,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        //To make activity full-screen (No status bar-no title bar)
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        setContentView(R.layout.activity_main);
 
         File temp =getDatabasePath("TempDB");
 
@@ -51,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private void Init(){
         btnTestRetrofit=findViewById(R.id.btnTestRetrofit);
         btnActiveAndroid=findViewById(R.id.btnActiveAndroid);
+        btnTestWebView=findViewById(R.id.btnTestWebView);
 
         todoService = APIClient.getClient().create(TodoService.class);
     }
@@ -96,6 +104,16 @@ public class MainActivity extends AppCompatActivity {
                 item.save();
                 //delete operation with ActiveAndroid
                 //Category.delete(Category.class,category.getId());
+
+                Toast.makeText(MainActivity.this, "Active android executed successfully!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnTestWebView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,WebViewActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
     }
